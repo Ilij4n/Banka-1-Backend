@@ -1,4 +1,4 @@
-FROM eclipse-temurin:23-jdk AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /workspace
 
 COPY gradle gradle
@@ -12,7 +12,7 @@ COPY notification-service/src notification-service/src
 
 RUN chmod +x gradlew && ./gradlew --no-daemon :notification-service:clean :notification-service:bootJar
 
-FROM eclipse-temurin:23-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 COPY --from=build /workspace/notification-service/build/libs/*.jar app.jar
